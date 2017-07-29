@@ -36,7 +36,9 @@ export async function getCarModel(sequelize, Sequelize) {
         buy_it_now       : Sequelize.TEXT,
         location         : Sequelize.TEXT,
         path_to_image    : Sequelize.TEXT,
-        currency         : Sequelize.TEXT
+        currency         : Sequelize.TEXT,
+        color            : Sequelize.TEXT,
+        sale_date        : Sequelize.TEXT
     });
 
     await car.sync();

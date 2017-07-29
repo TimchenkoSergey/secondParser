@@ -1,6 +1,10 @@
+import fs from 'fs';
+import config from './config';
 import { sendRequest } from './lib/sendRequest';
 import { fillDB } from './model/fillDb';
+import { updateDb } from './model/updateDb';
 import { downloadImage } from './lib/downloadImage';
+import { filterCars } from './lib/filterCars';
 import {
     REQUEST_CARS_OPTIONS,
     LOCATIONS
@@ -12,10 +16,18 @@ async function start() {
     const { res } = await sendRequest(REQUEST_CARS_OPTIONS);
     const pars = JSON.parse(res.body);
     const cars = pars.data.results.content.filter((item) => LOCATIONS.includes(item['syn']));
+    const filtredCars = cars.filter(filterCars);
 
-    for (let i = 0; i < cars.length; i++) {
-        cars[i].imageSmall = await downloadImage(cars[i]['tims']);
+    if (config.get('fillDb')) {
+        let carsWithFullInfo = JSON.parse(fs.readFileSync('result.json'));
+
+        for (let i = 0; i < carsWithFullInfo.length; i++) {
+            carsWithFullInfo[i]['data']['lotDetails']['imageSmall'] = await downloadImage(carsWithFullInfo[i]['data']['lotDetails']['tims']);
+        }
+
+        await fillDB(carsWithFullInfo);
     }
-
-    await fillDB(cars);
+    else {
+        await updateDb(filtredCars);
+    }
 }

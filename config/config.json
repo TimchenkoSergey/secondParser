@@ -1,7 +1,8 @@
 {
   "baseUrl": "https://www.copart.com/public/lots/search",
   "locations": ["FL - TAMPA SOUTH"],
-  "pathToImages" : "./public/img/",
+  "pathToImages": "./public/img/",
+  "fillDb": false,
   "db": {
     "name": "cars",
     "userName": "root",
