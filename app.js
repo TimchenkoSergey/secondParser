@@ -31,3 +31,5 @@ async function start() {
         await updateDb(filtredCars);
     }
 }
+
+

@@ -20,8 +20,16 @@ export async function updateDb(cars) {
     carsInDb.forEach(async function(itemInDb) {
         if (cars.some((item) => itemInDb['lot_id'] === item['lotNumberStr'])) {
             const inPars = cars.find(item => item['lotNumberStr'] === itemInDb['lot_id']);
-            if (itemInDb['current_bid'] != inPars['hb']) {
-                await model.update(models.car, { lot_id : itemInDb['lot_id'] }, { current_bid : '' + inPars['hb'] });
+            if (itemInDb['current_bid'] != inPars['hb'] || itemInDb['sale_date'] != inPars['ad']) {
+                await model.update(models.car,
+                    {
+                        lot_id : itemInDb['lot_id']
+                    },
+                    {
+                        current_bid : '' + inPars['hb'],
+                        sale_date : '' + inPars['ad']
+                    }
+                );
             }
         }
     });

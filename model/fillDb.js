@@ -26,7 +26,7 @@ export async function fillDB(cars, maxId = 0) {
                     est_retail_value: car['la']           ? '' + car['la']           : '',
                     vin:              car['fv']           ? '' + car['fv']           : '',
                     body_style:       car['bstl']         ? '' + car['bstl']         : '',
-                    engine_type:      car['egn']          ? '' + car['egn']          : '',
+                    engine_type:      car['egn']          ? '' + car['egn']          : '0',
                     drive:            car['drv']          ? '' + car['drv']          : '',
                     transmission:     car['tmtp']         ? '' + car['tmtp']         : '',
                     cylinders:        car['cy']           ? '' + car['cy']           : '',
